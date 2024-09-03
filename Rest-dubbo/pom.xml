@@ -1,0 +1,179 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ray.lee</groupId>
+  <artifactId>dubboTest</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Dubbo Test</name>
+  
+  <modules>
+  	<module>model</module>
+  	<module>utilities</module>
+  	<module>common</module>
+  	<module>controller</module>
+  	<module>services</module>
+  </modules>
+  
+  <parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>3.0.0</version>
+	<relativePath/>
+  </parent>
+  
+  <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	<java.version>17</java.version>		
+  </properties>
+  
+	<dependencies>
+		<!-- RabbitMQ -->
+		<!-- dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency -->								
+		<!-- Redis -->
+		<!--dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency -->
+		<!--dependency>
+		    <groupId>org.redisson</groupId>
+		    <artifactId>redisson-spring-boot-starter</artifactId>
+		    <version>3.28.0</version>
+		</dependency -->
+		<!--dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-cache</artifactId>
+		</dependency -->
+	    <dependency>
+	    	<groupId>org.springframework.boot</groupId>
+	   		<artifactId>spring-boot-starter-aop</artifactId>
+	 	</dependency>	 		
+		<!-- Linebot https://mvnrepository.com/artifact/com.linecorp.bot/line-bot-spring-boot -->
+		<dependency>
+		    <groupId>com.linecorp.bot</groupId>
+		    <artifactId>line-bot-spring-boot</artifactId>
+		    <version>6.0.0</version>		    		    		    		     
+		</dependency>		
+		<!-- Dubbo -->
+		<dependency>
+		    <groupId>org.apache.dubbo</groupId>
+		    <artifactId>dubbo-spring-boot-starter</artifactId>
+		    <version>3.2.0</version>
+		</dependency>											
+		<!-- Others -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.32</version>
+		    <scope>provided</scope>
+		</dependency>
+	    <dependency>
+	        <groupId>org.apache.httpcomponents.client5</groupId>
+	        <artifactId>httpclient5</artifactId>
+	        <version>5.2.1</version>
+	    </dependency>			
+	</dependencies>	
+
+ 	<profiles>  
+		<profile>
+			<id>dev</id>
+			<build>
+	           <resources>
+	               <resource>
+	                   <directory>src/main/resources/env/dev</directory>
+					<includes>  
+					    <include>**/*.xml</include>  
+					    <include>**/*.properties</include>
+                        <include>**/*.json</include>
+                        <include>**/*.jks</include>
+                    </includes>
+	               </resource>
+	           </resources>
+			</build>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+		       <build>
+		           <resources>
+		               <resource>
+		                   <directory>src/main/resources/env/test</directory>
+			            <includes>  
+			                <include>**/*.xml</include>  
+			                <include>**/*.properties</include>
+                            <include>**/*.json</include>
+                            <include>**/*.jks</include>
+			            </includes>                        
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>prod</id>
+		       <build>
+		           <resources>
+		               <resource>
+		                   <directory>src/main/resources/env/prod</directory>
+			            <includes>  
+			                <include>**/*.xml</include>  
+			                <include>**/*.properties</include>
+                            <include>**/*.json</include>
+                            <include>**/*.jks</include>
+                            <include>**/*.pfx</include>
+			            </includes>                        
+					</resource>
+				</resources>
+			</build>
+		</profile>				
+	</profiles>	
+	
+	<build>
+	    <resources>  
+	        <resource>  
+	            <directory>src/main/java</directory>  
+	            <includes>  
+	            	<include>**/*.xml</include>
+	                <include>**/*.properties</include>
+	                <include>**/*.xls</include>
+	            </includes>  
+	        </resource>  
+	        <resource>  
+	            <directory>src/main/resources</directory>
+	            <filtering>true</filtering>
+	            <excludes>
+	                <exclude>**/env/**</exclude>
+	            </excludes>              
+	            <includes>
+	            	<include>**/static/**</include>  
+	            	<include>**/templates/**</include>
+	            	<include>**/h2db/**</include>
+	                <include>**/*.xml</include>  
+	                <include>**/*.properties</include>
+                    <include>**/*.json</include>
+                    <include>**/*.jks</include>
+                    <include>**/*.pfx</include>
+	            </includes>  
+	        </resource>  
+	    </resources>	
+		<plugins>		
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>								 			
+		</plugins>
+	</build>  
+</project>

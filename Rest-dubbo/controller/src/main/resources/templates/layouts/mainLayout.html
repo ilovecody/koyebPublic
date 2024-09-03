@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="layouts/head"></head>
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div th:replace="layouts/leftMenu" />
+        <!-- top navigation -->
+        <div th:replace="layouts/topMenu" />
+        <!-- page content -->
+		<div layout:fragment="layouts/content" />
+        <!-- footer content -->
+        <footer th:replace="layouts/footer" />
+      </div>
+    </div>
+  </body>
+</html>
